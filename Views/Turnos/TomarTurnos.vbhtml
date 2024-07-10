@@ -118,27 +118,33 @@ End Code
                     // Llenar tabla con los datos recibidos
                     debugger
 
-                    var parsedResponse = JSON.parse(response);
+                    var datos = JSON.parse(response);
 
-                    if (parsedResponse.LlenadoTabla && parsedResponse.LlenadoTabla.length > 0) {
-                        // Llenar tabla con los datos recibidos
-                        $.each(parsedResponse.LlenadoTabla, function (index, turno) {
-                            // Construir fila de la tabla
-                            var fila = '<tr>' +
-                                '<td>' + turno.TurnoID + '</td>' +
-                                '<td>' + turno.FechaTurno + '</td>' +
-                                '<td>' + turno.HoraInicio + '</td>' +
-                                '<td>' + turno.HoraFin + '</td>' +
-                                '<td>' + turno.DescripcionEstado + '</td>' +
-                                '<td>' + turno.NombreServicio + '</td>' +
-                                '</tr>';
+                    if (datos.rta == 1) {
 
-                            // Agregar fila a la tabla
-                            $('#tabla tbody').append(fila);
-                        });
-                    } else {
-                        // Mostrar mensaje si no hay datos
-                        $('#tabla tbody').html('<tr><td colspan="6">No se encontraron turnos</td></tr>');
+                        if (datos.LlenadoTabla && datos.LlenadoTabla.length > 0) {
+                            // Llenar tabla con los datos recibidos
+                            $.each(datos.LlenadoTabla, function (index, turno) {
+                                // Construir fila de la tabla
+                                var fila = '<tr>' +
+                                    '<td>' + turno.TurnoID + '</td>' +
+                                    '<td>' + turno.FechaTurno + '</td>' +
+                                    '<td>' + turno.HoraInicio + '</td>' +
+                                    '<td>' + turno.HoraFin + '</td>' +
+                                    '<td>' + turno.DescripcionEstado + '</td>' +
+                                    '<td>' + turno.NombreServicio + '</td>' +
+                                    '</tr>';
+
+                                // Agregar fila a la tabla
+                                $('#tabla tbody').append(fila);
+                            });
+                        } else {
+                            // Mostrar mensaje si no hay datos
+                            $('#tabla tbody').html('<tr><td colspan="6">No se encontraron turnos</td></tr>');
+                        }
+                    }
+                    else {
+                        alert(datos.mensaje);
                     }
                 },
                 error: function (xhr, status, error) {

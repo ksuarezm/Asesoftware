@@ -51,7 +51,22 @@ Namespace Controllers.Turnos
             }
 
             Try
-                Dim apiBaseUrl As String = "https://localhost:44398/"
+                Dim baseUrl = ""
+                Dim currentContext As HttpContextBase = ControllerContext.HttpContext
+
+                If currentContext IsNot Nothing AndAlso currentContext.Request IsNot Nothing AndAlso currentContext.Request.Url IsNot Nothing Then
+                    'Obtener el puerto del servidor local - esto si esta desde localhost, que seria este caso, donde seria dinamico
+
+                    Dim port As Integer = currentContext.Request.Url.Port
+
+                    ' Construir la URL de http
+
+                    Dim apiBase As String = $"{currentContext.Request.Url.Scheme}://{currentContext.Request.Url.Authority}/"
+                    baseUrl = apiBase
+                Else
+                    Throw New Exception("Mo se puede obtener direccion HTTP")
+                End If
+
 
                 Using httpClient As New HttpClient()
 
@@ -64,12 +79,14 @@ Namespace Controllers.Turnos
                     Dim jsonContent As String = JsonConvert.SerializeObject(data)
                     Dim content As New StringContent(jsonContent, Encoding.UTF8, "application/json")
 
-                    Dim response As HttpResponseMessage = Await httpClient.PostAsync(apiBaseUrl & "api/turnos/generar_turnos", content)
+                    Dim response As HttpResponseMessage = Await httpClient.PostAsync(baseUrl & "api/turnos/generar_turnos", content)
 
                     If response.IsSuccessStatusCode Then
                         Dim jsonResponse As String = Await response.Content.ReadAsStringAsync()
                         resultado.LlenadoTabla = JsonConvert.DeserializeObject(Of List(Of Object))(jsonResponse)
                         resultado.conteo = resultado.LlenadoTabla.Count
+                        resultado.rta = 1
+
                     Else
                         Dim errorMessage As String
                         If response.StatusCode = 500 Then
@@ -90,14 +107,7 @@ Namespace Controllers.Turnos
 
         End Function
 
-
-
-        Public Class Turno
-            Public Property TurnoID As Integer
-            Public Property Fecha As DateTime
-            Public Property HoraInicio As String
-            Public Property HoraFin As String
-        End Class
-
     End Class
 End Namespace
+
+

@@ -1,0 +1,64 @@
+﻿.boton_aceptar {
+    color: white;
+    background-color: #556da2;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 3px;
+    padding-left: 8px;
+    padding-right: 8px;
+    font-family: helvetica;
+    font-size: 11px;
+    border-radius: 5px;
+    border: 2px #006505;
+    font-size: 13px;
+    font-family: "Century Gothic", "Century Gothic", Sans-Serif;
+}
+    .boton_aceptar:hover {
+        opacity: 0.6;
+        text-decoration: none;
+    }
+
+.boton_rechazar {
+    color: white;
+    background-color: #883344;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 3px;
+    padding-left: 8px;
+    padding-right: 8px;
+    font-family: helvetica;
+    font-size: 11px;
+    border-radius: 5px;
+    border: 2px #006505;
+    font-size: 13px;
+    font-family: "Century Gothic", "Century Gothic", Sans-Serif;
+}
+
+    .boton_rechazar:hover {
+        opacity: 0.6;
+        text-decoration: none;
+    }
+
+
+
+.tituloUno {
+    font-family: "Century Gothic", "Century Gothic", Sans-Serif;
+    color: #636363;
+    font-weight: bold;
+}
+
+.tituloDos {
+    font-family: "Century Gothic", "Century Gothic", Sans-Serif;
+    color: #556da2;
+    font-weight: bold;
+    width: 100% !important;
+}
+
+.tituloTres {
+    font-family: "Century Gothic", "Century Gothic", Sans-Serif;
+    color: #EEEDED;
+}
